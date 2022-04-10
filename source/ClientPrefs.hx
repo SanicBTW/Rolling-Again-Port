@@ -28,11 +28,11 @@ class ClientPrefs {
 	public static var hideTime:Bool = false;
 	public static var currentHitSound:String = "";
 	public static var hitSoundPath:String = ""; //sorry
-	public static var useHitSounds:Bool = true;
+	public static var useHitSounds:Bool = false;
 	public static var useExternalCharts:Bool = true;
 	public static var useExternalCharacters:Bool = true;
 	public static var optimizationType:OptimizationType = NONE;
-	public static var cameraMovOnNotePress:Bool = true;
+	public static var cameraMovOnNotePress:Bool = false;
 
 	public static var defaultKeys:Array<FlxKey> = [
 		A, LEFT,			//Note Left

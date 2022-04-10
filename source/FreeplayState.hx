@@ -20,12 +20,7 @@ class FreeplayState extends MusicBeatState
 {
 	//Character head icons for your songs
 	static var songsHeads:Array<Dynamic> = [
-		['dad'],							//Week 1
-		['spooky', 'spooky', 'monster'],	//Week 2
-		['pico'],							//Week 3
-		['mom'],							//Week 4
-		['parents', 'parents', 'monster'],	//Week 5
-		['senpai', 'senpai', 'spirit']		//Week 6
+		['miku-icons-rg']					//Week 1
 	];
 
 	var songs:Array<SongMetadata> = [];
@@ -56,6 +51,7 @@ class FreeplayState extends MusicBeatState
 	{
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
+		/*
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt("freeplaySonglist"));
 		for (i in 0...initSonglist.length)
 		{
@@ -67,7 +63,8 @@ class FreeplayState extends MusicBeatState
 		for (i in 0...colorsList.length)
 		{
 			coolColors.push(Std.parseInt(colorsList[i]));
-		}
+		}*/
+		coolColors.push(Std.parseInt('0x9271FD'));
 		/* 
 			if (FlxG.sound.music != null)
 			{

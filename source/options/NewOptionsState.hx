@@ -34,7 +34,7 @@ class NewOptionsState extends MusicBeatState
         #end
         'Downscroll',
         'Middlescroll',
-        'Ghost Tapping',
+        //'Ghost Tapping',
         'Note Delay',
         'Note Splashes',
         'Hide HUD',
@@ -51,9 +51,9 @@ class NewOptionsState extends MusicBeatState
         #if sys
         "Internal Storage Options", 
         #end*/
-        "Use Hit Sounds",
+        //"Use Hit Sounds",
         'Optimization Type',
-        'Camera Movement On Note Press'
+        //'Camera Movement On Note Press'
     ];
 
     private var grpOptions:FlxTypedGroup<Alphabet>;
