@@ -1,1 +1,0 @@
-miku stuff is on their respective folders (images, data, songs, and so) i didnt really want to force bgsprite and that shit to load from a week folder
