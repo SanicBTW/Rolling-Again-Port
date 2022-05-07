@@ -34,15 +34,6 @@ class EngineOpts extends BaseOptionsMenu
         title = "Engine Options";
         rpcTitle = "Engine Options Menu";
 
-        var option:Option = new Option("Use Hit Sounds",
-            "Will play hit sounds when hitting notes\n
-            Not done so nothing will happen if its checked or not lol\n
-            Should've been added in the 0.3 release but it didnt",
-            "useHitSounds",
-            "bool",
-            false);
-        addOption(option);
-
         var option:Option = new Option("Classic Middlescroll",
             "If checked, it will show up the classic middlescroll",
             "classicMiddlescroll",
@@ -54,7 +45,7 @@ class EngineOpts extends BaseOptionsMenu
             "This one is from the base engine, literally ke sustains",
             "keSustains",
             "bool",
-            true);
+            false);
         addOption(option);
         super();
     }

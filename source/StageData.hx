@@ -20,6 +20,12 @@ typedef StageFile = {
 	var boyfriend:Array<Dynamic>;
 	var girlfriend:Array<Dynamic>;
 	var opponent:Array<Dynamic>;
+	var hide_girlfriend:Bool;
+
+	var camera_boyfriend:Array<Float>;
+	var camera_opponent:Array<Float>;
+	var camera_girlfriend:Array<Float>;
+	var camera_speed:Null<Float>;
 }
 
 class StageData {
@@ -31,6 +37,8 @@ class StageData {
 		} else if(SONG.song != null) {
 			switch (SONG.song.toLowerCase().replace(' ', '-'))
 			{
+				case 'rolling':
+					stage = 'rolling';
 				case 'spookeez' | 'south' | 'monster':
 					stage = 'spooky';
 				case 'pico' | 'blammed' | 'philly' | 'philly-nice':

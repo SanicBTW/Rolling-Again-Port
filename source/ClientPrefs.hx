@@ -40,7 +40,7 @@ class ClientPrefs {
 	];
 
 	public static var comboOffset:Array<Int> = [0, 0, 0, 0];
-	public static var keSustains:Bool = true; //i was bored, okay?, onkly for testing
+	public static var keSustains:Bool = false; //i was bored, okay?, onkly for testing
 	
 	public static var ratingOffset:Int = 0;
 	public static var sickWindow:Int = 45;
