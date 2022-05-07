@@ -274,6 +274,13 @@ class PlayState extends MusicBeatState
 	var bfturn:Bool = false;
 	var camMov:Int = 15;
 
+	//port stuff
+	var bg:BGSprite;
+	var bgGreen:BGSprite;
+	var bf_reach:FlxSprite;
+	var hug:FlxSprite;
+	var overlay:FlxSprite;
+
 	override public function create()
 	{
 		#if MODS_ALLOWED
@@ -429,16 +436,31 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'rolling':
-				var bg:BGSprite = new BGSprite('miku/bg', 0, 0);
+				bg = new BGSprite('miku/bg', 0, 0);
 					bg.scale.x = 10;
 					bg.scale.y = 10;
 					add(bg);
+
+				bgGreen = new BGSprite('miku/green', 0,0);
+					bgGreen.scale.x = 10;
+					bgGreen.scale.y = 10;
+					bgGreen.alpha = 0;
+					add(bgGreen);
 
 				var vignette:FlxSprite = new FlxSprite(0,0);
 					vignette.loadGraphic(Paths.image('miku/vignette'), false, FlxG.width, FlxG.height);
 					vignette.camera = camHUD;
 					vignette.alpha = 0.7;
 					add(vignette);
+				
+				overlay = new FlxSprite(-10,-40);
+					overlay.frames = Paths.getSparrowAtlas('miku/overlay');
+					overlay.animation.addByPrefix('idle', 'idle', 24, true);
+					overlay.camera = camHUD;
+					overlay.blend = DARKEN;
+					add(overlay);
+					overlay.animation.play('idle', true);
+
 		}
 
 		if(isPixelStage) {
@@ -3900,6 +3922,17 @@ class PlayState extends MusicBeatState
 
 		if(curStep == lastStepHit) {
 			return;
+		}
+
+		switch(curStage)
+		{
+			case "rolling":
+				switch(curStep)
+				{
+					case 1903:
+						bg.alpha = 0;
+						bgGreen.alpha = 1;
+				}
 		}
 
 		lastStepHit = curStep;
