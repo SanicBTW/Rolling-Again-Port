@@ -1,0 +1,25 @@
+{
+	"storyName": "Rolling",
+	"hideFreeplay": false,
+	"weekBackground": "rolling",
+	"weekBefore": "",
+	"startUnlocked": true,
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"songs": [
+		[
+			"rolling",
+			"miku-icons-rg",
+			[
+				146,
+				113,
+				253
+			]
+		]
+	],
+	"hideStoryMode": false,
+	"weekName": "lord_chacs"
+}
