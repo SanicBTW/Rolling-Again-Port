@@ -34,15 +34,10 @@ class EngineOpts extends BaseOptionsMenu
         title = "Engine Options";
         rpcTitle = "Engine Options Menu";
 
-        var option:Option = new Option("Camera Movement On Note Press",
-            'If checked the camera will snap on the notes direction',
-            "cameraMovOnNotePress",
-            "bool",
-            true);
-        addOption(option);
-
         var option:Option = new Option("Use Hit Sounds",
-            "Will play hit sounds when hitting notes",
+            "Will play hit sounds when hitting notes\n
+            Not done so nothing will happen if its checked or not lol\n
+            Should've been added in the 0.3 release but it didnt",
             "useHitSounds",
             "bool",
             false);

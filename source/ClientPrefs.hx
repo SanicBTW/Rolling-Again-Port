@@ -51,8 +51,8 @@ class ClientPrefs {
 	//engine
 	public static var currentHitSound:String = "";
 	public static var hitSoundPath:String = ""; //sorry
-	public static var useHitSounds:Bool = true;
-	public static var cameraMovOnNotePress:Bool = true;
+	public static var useHitSounds:Bool = false;
+	public static var cameraMovOnNotePress:Bool = false;
 	public static var classicMiddlescroll:Bool = true;
 
 	//Every key has two binds, add your key bind down here and then add your control on options/ControlsSubState.hx and Controls.hx
