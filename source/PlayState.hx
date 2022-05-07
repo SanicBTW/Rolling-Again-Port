@@ -3481,10 +3481,6 @@ class PlayState extends MusicBeatState
 
 			if(ClientPrefs.ghostTapping) return;
 
-			if (combo > 5 && gf.animOffsets.exists('sad'))
-			{
-				gf.playAnim('sad');
-			}
 			if(combo > highestCombo)
 				highestCombo = combo;
 			combo = 0;
@@ -3624,8 +3620,11 @@ class PlayState extends MusicBeatState
 					//}
 				//}else{
 					if(note.gfNote) {
-						gf.playAnim(animToPlay + daAlt, true);
-						gf.holdTimer = 0;
+						if(gf != null)
+							{
+								gf.playAnim(animToPlay + daAlt, true);
+								gf.holdTimer = 0;
+							}
 					} else {
 						boyfriend.playAnim(animToPlay + daAlt, true);
 						boyfriend.holdTimer = 0;
@@ -3638,7 +3637,7 @@ class PlayState extends MusicBeatState
 						boyfriend.heyTimer = 0.6;
 					}
 	
-					if(gf.animOffsets.exists('cheer')) {
+					if(gf != null && gf.animOffsets.exists('cheer')) {
 						gf.playAnim('cheer', true);
 						gf.specialAnim = true;
 						gf.heyTimer = 0.6;
