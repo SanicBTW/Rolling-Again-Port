@@ -280,6 +280,7 @@ class PlayState extends MusicBeatState
 	var bf_reach:FlxSprite;
 	var hug:FlxSprite;
 	var overlay:FlxSprite;
+	var green:BGSprite;
 
 	override public function create()
 	{
@@ -436,16 +437,26 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'rolling':
-				bg = new BGSprite('miku/bg', 0, 0);
-					bg.scale.x = 10;
-					bg.scale.y = 10;
-					add(bg);
-
 				bgGreen = new BGSprite('miku/green', 0,0);
 					bgGreen.scale.x = 10;
 					bgGreen.scale.y = 10;
 					bgGreen.alpha = 0;
 					add(bgGreen);
+
+				bg = new BGSprite('miku/bg', 0, 0);
+					bg.scale.x = 10;
+					bg.scale.y = 10;
+					add(bg);
+
+				green = new BGSprite('miku/green', 0,0);
+					green.camera = camHUD;
+					green.alpha = 1;
+
+				hug = new FlxSprite(260, 70);
+					hug.camera = camHUD;
+					hug.alpha = 0.8;
+					hug.scale.x = 1.2;
+					hug.scale.y = 1.2;
 
 				var vignette:FlxSprite = new FlxSprite(0,0);
 					vignette.loadGraphic(Paths.image('miku/vignette'), false, FlxG.width, FlxG.height);
@@ -460,7 +471,12 @@ class PlayState extends MusicBeatState
 					overlay.blend = DARKEN;
 					add(overlay);
 					overlay.animation.play('idle', true);
-
+				
+				bf_reach = new FlxSprite(330,330);
+					bf_reach.scale.x = 1.5;
+					bf_reach.scale.y = 1.5;
+					bf_reach.frames = Paths.getSparrowAtlas('miku/BF REACH');
+					bf_reach.animation.addByPrefix('reach', "BF REACH SMOL", 20, false);
 		}
 
 		if(isPixelStage) {
@@ -3929,9 +3945,34 @@ class PlayState extends MusicBeatState
 			case "rolling":
 				switch(curStep)
 				{
+					case 1304:
+						changeChar(0, "bf-rg-2");
+						boyfriend.playAnim('glance', true);
+						boyfriend.specialAnim = true;
+					case 1474:
+						changeChar(0, "bf-rg");
+					case 1787:
+						changeChar(0, "bf-rg-2");
+						boyfriend.playAnim("glance", true);
+						boyfriend.specialAnim = true;
+					case 1882:
+						FlxTween.tween(dad, {alpha: 0}, 0.7, {ease: FlxEase.circInOut});
+						FlxTween.tween(boyfriend, {alpha: 0}, 0.7, {ease: FlxEase.circInOut});
+					case 1888:
+						add(bf_reach);
+						bf_reach.animation.play('reach', true);
 					case 1903:
-						bg.alpha = 0;
+						remove(bf_reach);
+						add(green);
+						add(hug);
+						changeChar(1, 'miku-rg-color');
+						changeChar(0, "bf-rg-color");
 						bgGreen.alpha = 1;
+						bg.alpha = 0;
+						FlxTween.tween(green, {alpha: 0}, 1.7, {ease: FlxEase.circInOut});
+						FlxTween.tween(hug, {alpha: 0}, 2.1, {ease: FlxEase.circInOut});
+						FlxTween.tween(dad, {alpha: 1}, 0.7, {ease: FlxEase.circInOut});
+						FlxTween.tween(boyfriend, {alpha: 1}, 0.7, {ease: FlxEase.circInOut});
 				}
 		}
 
@@ -4185,6 +4226,62 @@ class PlayState extends MusicBeatState
 		return null;
 	}
 	#end
+
+	function changeChar(charType:Int, value2:String)
+	{
+		switch(charType)
+		{
+			case 0:
+				if(boyfriend.curCharacter != value2) {
+					if(!boyfriendMap.exists(value2)) {
+						addCharacterToList(value2, charType);
+					}
+
+					var lastAlpha:Float = boyfriend.alpha;
+					boyfriend.alpha = 0.00001;
+					boyfriend = boyfriendMap.get(value2);
+					boyfriend.alpha = lastAlpha;
+					iconP1.changeIcon(boyfriend.healthIcon);
+				}
+				setOnLuas('boyfriendName', boyfriend.curCharacter);
+
+			case 1:
+				if(dad.curCharacter != value2) {
+					if(!dadMap.exists(value2)) {
+						addCharacterToList(value2, charType);
+					}
+
+					var wasGf:Bool = dad.curCharacter.startsWith('gf');
+					var lastAlpha:Float = dad.alpha;
+					dad.alpha = 0.00001;
+					dad = dadMap.get(value2);
+					if(!dad.curCharacter.startsWith('gf')) {
+						if(wasGf) {
+							gf.visible = true;
+						}
+					} else {
+						gf.visible = false;
+					}
+					dad.alpha = lastAlpha;
+					iconP2.changeIcon(dad.healthIcon);
+				}
+				setOnLuas('dadName', dad.curCharacter);
+
+			case 2:
+				if(gf.curCharacter != value2) {
+					if(!gfMap.exists(value2)) {
+						addCharacterToList(value2, charType);
+					}
+
+					var lastAlpha:Float = gf.alpha;
+					gf.alpha = 0.00001;
+					gf = gfMap.get(value2);
+					gf.alpha = lastAlpha;
+				}
+				setOnLuas('gfName', gf.curCharacter);
+		}
+		reloadHealthBarColors();	
+	}
 
 	var curLight:Int = 0;
 	var curLightEvent:Int = 0;
