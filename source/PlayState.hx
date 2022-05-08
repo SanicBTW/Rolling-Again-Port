@@ -448,6 +448,7 @@ class PlayState extends MusicBeatState
 					bg.scale.y = 10;
 					add(bg);
 
+				#if !android
 				green = new BGSprite('miku/green', 0,0);
 					green.scale.y = 10;
 					green.scale.x = 10;
@@ -484,6 +485,7 @@ class PlayState extends MusicBeatState
 					bf_reach.scale.y = 1.5;
 					bf_reach.frames = Paths.getSparrowAtlas('miku/BF REACH');
 					bf_reach.animation.addByPrefix('reach', "BF REACH SMOL", 20, false);
+				#end
 		}
 
 		if(isPixelStage) {
@@ -4293,10 +4295,12 @@ class PlayState extends MusicBeatState
 	}
 
 	function onCreatePost()
-	{		
+	{	
+		#if !android
 		addCharacterToList('bf-rg-2', 0);
 		addCharacterToList('bf-rg-color', 0);
 		addCharacterToList('miku-rg-color', 0);
+		#end
 	}
 
 	var curLight:Int = 0;
