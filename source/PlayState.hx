@@ -447,6 +447,41 @@ class PlayState extends MusicBeatState
 					bg.scale.x = 10;
 					bg.scale.y = 10;
 					add(bg);
+
+				green = new BGSprite('miku/green', 0,0);
+					green.scale.y = 10;
+					green.scale.x = 10;
+					green.alpha = 1;
+					green.camera = camHUD;
+			
+				hug = new FlxSprite(260, 70);
+					hug.loadGraphic(Paths.image('miku/hug'));
+					hug.camera = camHUD;
+					hug.alpha = 0.8;
+					hug.scale.x = 1.2;
+					hug.scale.y = 1.2;
+					
+				var vignette:FlxSprite = new FlxSprite(0,0);
+					vignette.loadGraphic(Paths.image('miku/vignette'), false, FlxG.width, FlxG.height);
+					vignette.camera = camHUD;
+					vignette.alpha = 0.7;
+					add(vignette);
+					
+				overlay = new FlxSprite(-10,-40);
+					overlay.frames = Paths.getSparrowAtlas('miku/overlay');
+					overlay.animation.addByPrefix('idle', 'idle', 24, true);
+					overlay.scale.x = 1280/1024;
+					overlay.scale.y = 1.02;
+					overlay.camera = camHUD;
+					overlay.blend = DARKEN;
+					add(overlay);
+					overlay.animation.play('idle', true);
+					
+				bf_reach = new FlxSprite(330,330);
+					bf_reach.scale.x = 1.5;
+					bf_reach.scale.y = 1.5;
+					bf_reach.frames = Paths.getSparrowAtlas('miku/BF REACH');
+					bf_reach.animation.addByPrefix('reach', "BF REACH SMOL", 20, false);
 		}
 
 		if(isPixelStage) {
@@ -4256,42 +4291,7 @@ class PlayState extends MusicBeatState
 	}
 
 	function onCreatePost()
-	{
-		green = new BGSprite('miku/green', 0,0);
-		green.scale.y = 10;
-		green.scale.x = 10;
-		green.alpha = 1;
-		green.camera = camHUD;
-
-		hug = new FlxSprite(260, 70);
-		hug.loadGraphic(Paths.image('miku/hug'));
-		hug.camera = camHUD;
-		hug.alpha = 0.8;
-		hug.scale.x = 1.2;
-		hug.scale.y = 1.2;
-		
-		var vignette:FlxSprite = new FlxSprite(0,0);
-		vignette.loadGraphic(Paths.image('miku/vignette'), false, FlxG.width, FlxG.height);
-		vignette.camera = camHUD;
-		vignette.alpha = 0.7;
-		add(vignette);
-		
-		overlay = new FlxSprite(-10,-40);
-		overlay.frames = Paths.getSparrowAtlas('miku/overlay');
-		overlay.animation.addByPrefix('idle', 'idle', 24, true);
-		overlay.scale.x = 1280/1024;
-		overlay.scale.y = 1.02;
-		overlay.camera = camHUD;
-		overlay.blend = DARKEN;
-		add(overlay);
-		overlay.animation.play('idle', true);
-		
-		bf_reach = new FlxSprite(330,330);
-		bf_reach.scale.x = 1.5;
-		bf_reach.scale.y = 1.5;
-		bf_reach.frames = Paths.getSparrowAtlas('miku/BF REACH');
-		bf_reach.animation.addByPrefix('reach', "BF REACH SMOL", 20, false);
-		
+	{		
 		addCharacterToList('bf-rg-2', 0);
 		addCharacterToList('bf-rg-color', 0);
 		addCharacterToList('miku-rg-color', 0);
