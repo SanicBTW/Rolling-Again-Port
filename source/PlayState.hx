@@ -466,7 +466,8 @@ class PlayState extends MusicBeatState
 					vignette.camera = camHUD;
 					vignette.alpha = 0.7;
 					add(vignette);
-					
+				
+				#if !html5 //force it because it doesnt display correctly
 				overlay = new FlxSprite(-10,-40);
 					overlay.frames = Paths.getSparrowAtlas('miku/overlay');
 					overlay.animation.addByPrefix('idle', 'idle', 24, true);
@@ -476,6 +477,7 @@ class PlayState extends MusicBeatState
 					overlay.blend = DARKEN;
 					add(overlay);
 					overlay.animation.play('idle', true);
+				#end
 					
 				bf_reach = new FlxSprite(330,330);
 					bf_reach.scale.x = 1.5;
