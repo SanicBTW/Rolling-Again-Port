@@ -467,7 +467,7 @@ class PlayState extends MusicBeatState
 					vignette.alpha = 0.7;
 					add(vignette);
 				
-				#if (!html5 || android) //force it because it doesnt display correctly
+				#if (!html5 || !android) //force it because it doesnt display correctly
 				overlay = new FlxSprite(-10,-40);
 					overlay.frames = Paths.getSparrowAtlas('miku/overlay');
 					overlay.animation.addByPrefix('idle', 'idle', 24, true);
