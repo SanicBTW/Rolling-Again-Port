@@ -115,6 +115,14 @@ class LoadingState extends MusicBeatState
 		super.update(elapsed);
 		funkay.setGraphicSize(Std.int(0.88 * FlxG.width + 0.9 * (funkay.width - 0.88 * FlxG.width)));
 		funkay.updateHitbox();
+		for (touch in FlxG.touches.list)
+		{
+			if (touch.justPressed)
+			{
+				funkay.setGraphicSize(Std.int(funkay.width + 60));
+				funkay.updateHitbox();
+			}
+		}
 		if(controls.ACCEPT)
 		{
 			funkay.setGraphicSize(Std.int(funkay.width + 60));
@@ -153,10 +161,10 @@ class LoadingState extends MusicBeatState
 	static function getNextState(target:FlxState, stopMusic = false):FlxState
 	{
 		var directory:String = 'shared';
-		var weekDir:String = StageData.forceNextDirectory;
-		StageData.forceNextDirectory = null;
+		/*var weekDir:String = StageData.forceNextDirectory;
+		StageData.forceNextDirectory = null;*/
 
-		if(weekDir != null && weekDir.length > 0 && weekDir != '') directory = weekDir;
+		//if(weekDir != null && weekDir.length > 0 && weekDir != '') directory = weekDir;
 
 		Paths.setCurrentLevel(directory);
 		trace('Setting asset folder to ' + directory);

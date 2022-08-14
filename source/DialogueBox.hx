@@ -28,7 +28,6 @@ class DialogueBox extends FlxSpriteGroup
 
 	public var finishThing:Void->Void;
 	public var nextDialogueThing:Void->Void = null;
-	public var skipDialogueThing:Void->Void = null;
 
 	var portraitLeft:FlxSprite;
 	var portraitRight:FlxSprite;
@@ -122,7 +121,7 @@ class DialogueBox extends FlxSpriteGroup
 		box.screenCenter(X);
 		portraitLeft.screenCenter(X);
 
-		handSelect = new FlxSprite(1042, 590).loadGraphic(Paths.image('weeb/pixelUI/hand_textbox'));
+		handSelect = new FlxSprite(1042, 590).loadGraphic(Paths.getPath('images/weeb/pixelUI/hand_textbox.png', IMAGE));
 		handSelect.setGraphicSize(Std.int(handSelect.width * PlayState.daPixelZoom * 0.9));
 		handSelect.updateHitbox();
 		handSelect.visible = false;
@@ -183,20 +182,7 @@ class DialogueBox extends FlxSpriteGroup
 			dialogueStarted = true;
 		}
 
-	        #if mobile
-	        var justTouched:Bool = false;
-
-	        for (touch in FlxG.touches.list)
-	        {
-		    justTouched = false;
-
-		    if (touch.justPressed){
-			justTouched = true;
-		    }
-	         }
-	         #end
-
-		if(PlayerSettings.player1.controls.ACCEPT#if android || justTouched #end)
+		if(FlxG.keys.justPressed.ANY)
 		{
 			if (dialogueEnded)
 			{
@@ -233,17 +219,13 @@ class DialogueBox extends FlxSpriteGroup
 				{
 					dialogueList.remove(dialogueList[0]);
 					startDialogue();
-					FlxG.sound.play(Paths.sound('clickText'), 0.8);
+					FlxG.sound.play(Paths.sound('clickText'), 0.8);	
 				}
 			}
 			else if (dialogueStarted)
 			{
-				FlxG.sound.play(Paths.sound('clickText'), 0.8);
+				FlxG.sound.play(Paths.sound('clickText'), 0.8);	
 				swagDialogue.skip();
-				
-				if(skipDialogueThing != null) {
-					skipDialogueThing();
-				}
 			}
 		}
 		

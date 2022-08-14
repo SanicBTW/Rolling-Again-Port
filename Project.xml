@@ -2,13 +2,10 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Rolling Again" file="RollingAgain" packageName="com.sanicbtw.rollinagainport" package="com.sanicbtw.rollinagainport" main="Main" version="0.2.7" company="sanicbtw" />
-	
+	<app title="Rolling Again" file="Rolling Again" packageName="com.sanicbtw.rollinagainport" package="com.sanicbtw.rollinagainport" main="Main" version="0.2.7" company="sanicbtw" />
+
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
-
-	<!-- NOTE TO SELF: DISABLE THIS IF ISSUES ARE FOUND -->
-	<haxedef name="LINC_LUA_RELATIVE_DYNAMIC_LIB"/> <!-- stable luas PUT AFTER FIRST LINE WITH APP NAME AND ETC -->
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -39,25 +36,14 @@
 
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
-	<set name="BUILD_DIR" value="export/32bit" if="32bits" />
+	<set name="BUILD_DIR" value="export/32bit" if="32bit" />
 
 	<classpath name="source" />
 
 	<assets path="assets/preload" rename="assets" exclude="*.mp3"/>
 	
-	<!-- PSYCH ENGINE CUSTOMIZATION -->
-	<define name="MODS_ALLOWED" if="tempfix"/>
-	<define name="LUA_ALLOWED" if="tempfix"/>
-	<define name="ACHIEVEMENTS_ALLOWED" />
-	<define name="VIDEOS_ALLOWED" if="tempfix" unless="32bits"/>
-	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE WATERMARKS ON TITLE SCREEN -->
-	    <!--define name="MOBILE_CONTROLS_ALLOWED" if="mobile"/> Fuck you stupid controls code -->
-
-	<!-- DONT ENABLE THIS -->
-	<define name="CHECK_FOR_UPDATES" if="desktop officialBuild"/>
-
 	<!-- <define name="PRELOAD_ALL" /> -->
-	<define name="PRELOAD_ALL" unless="web" />
+	<define name="PRELOAD_ALL" unless="web"/>
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
 	
 	<library name="videos"        preload="true" />
@@ -76,6 +62,7 @@
 	<assets path="assets/videos"        library="videos"        if="VIDEOS_ALLOWED"/>
 	<assets path="assets/songs"         library="songs"         exclude="*.mp3"/>
 	<assets path="assets/shared"        library="shared"        exclude="*.mp3"/>
+	<assets path="assets/android" if="android"/>
 	
 	<!-- <template path='mods' /> -->
 	
@@ -98,18 +85,10 @@
 
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
-	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
 	<haxelib name="faxe" if='switch'/>
 	<!--<haxelib name="polymod"/> -->
 	<haxelib name="discord_rpc" if="desktop"/>
-    <haxelib name="extension-webview" if="tempfix"/>
-    <haxelib name="extension-androidtools" if="android"/>
-
-    <config:android permission="android.permission.READ_EXTERNAL_STORAGE" if="android"/>
-    <config:android permission="android.permission.WRITE_EXTERNAL_STORAGE" if="android"/>
-
 	<!-- <haxelib name="hxcpp-debug-server" if="desktop"/> -->
-
 
 	<!-- <haxelib name="markdown" /> -->
 	<!-- <haxelib name="HtmlParser" /> -->
@@ -149,13 +128,10 @@
 	<!--Enable this for Nape release builds for a serious peformance improvement-->
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 
+	<haxedef name="HXCPP_GC_BIG_BLOCKS"/>
+
 	<!-- _________________________________ Custom _______________________________ -->
-	<!-- Akways enable Null Object Reference check -->
-	<haxedef name="HXCPP_CHECK_POINTER" if="release" />
-	<haxedef name="HXCPP_STACK_LINE" if="release" />
 
-
-	
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
 	
 	<icon path="art/icon16.png" size='16'/>
