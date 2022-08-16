@@ -209,12 +209,12 @@ class PlayState extends MusicBeatState
 	public static var startedSong = false;
 
 	//port stuff
-	var bg:BGSprite;
-	var bgGreen:BGSprite;
+	var bg:FlxSprite;
+	var bgGreen:FlxSprite;
 	var bf_reach:FlxSprite;
 	var hug:FlxSprite;
 	var overlay:FlxSprite;
-	var green:BGSprite;
+	var green:FlxSprite;
 
 	override public function create()
 	{
@@ -267,53 +267,58 @@ class PlayState extends MusicBeatState
 		{
 			case 'rolling':
 				curStage = "rolling";
-				bgGreen = new BGSprite('miku/green', 0,0);
-					bgGreen.scale.x = 10;
-					bgGreen.scale.y = 10;
-					bgGreen.alpha = 0;
-					add(bgGreen);
+				bgGreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.fromRGB(87, 237, 137));
+				bgGreen.scale.set(10, 10);
+				bgGreen.alpha = 0;
+				add(bgGreen);
 
-				bg = new BGSprite('miku/bg', 0, 0);
-					bg.scale.x = 10;
-					bg.scale.y = 10;
-					add(bg);
+				//hello?
+				bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
+				bg.scale.set(10, 10);
+				add(bg);
 
-				green = new BGSprite('miku/green', 0,0);
-					green.scale.y = 10;
-					green.scale.x = 10;
-					green.alpha = 1;
-					green.camera = camHUD;
-			
+				green = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.fromRGB(87, 237, 137));
+				green.scale.set(10, 10);
+				//green.alpha = 1;
+				green.camera = camHUD;
+
+				add(green);
+				green.alpha = 0;
+
 				hug = new FlxSprite(260, 70);
-					hug.loadGraphic(Paths.image('miku/hug'));
-					hug.camera = camHUD;
-					hug.alpha = 0.8;
-					hug.scale.x = 1.2;
-					hug.scale.y = 1.2;
-					
+				hug.loadGraphic(Paths.image('miku/hug'));
+				hug.camera = camHUD;
+				//hug.alpha = 0.8;
+				hug.scale.set(1.2, 1.2);
+
+				add(hug);
+				hug.alpha = 0;
+
 				var vignette:FlxSprite = new FlxSprite(0,0);
-					vignette.loadGraphic(Paths.image('miku/vignette'), false, FlxG.width, FlxG.height);
-					vignette.camera = camHUD;
-					vignette.alpha = 0.7;
-					add(vignette);
+				vignette.loadGraphic(Paths.image('miku/vignette'), false, FlxG.width, FlxG.height);
+				vignette.camera = camHUD;
+				vignette.alpha = 0.7;
+				add(vignette);
 				
 				#if (windows)
 				overlay = new FlxSprite(-10,-40);
-					overlay.frames = Paths.getSparrowAtlas('miku/overlay');
-					overlay.animation.addByPrefix('idle', 'idle', 24, true);
-					overlay.scale.x = 1280/1024;
-					overlay.scale.y = 1.02;
-					overlay.camera = camHUD;
-					overlay.blend = DARKEN;
-					add(overlay);
-					overlay.animation.play('idle', true);
+				overlay.frames = Paths.getSparrowAtlas('miku/overlay');
+				overlay.animation.addByPrefix('idle', 'idle', 24, true);
+				overlay.scale.set(1280/1024, 1.02);
+				overlay.camera = camHUD;
+				overlay.blend = DARKEN;
+				add(overlay);
+				overlay.animation.play('idle', true);
 				#end
 					
 				bf_reach = new FlxSprite(330,330);
-					bf_reach.scale.x = 1.5;
-					bf_reach.scale.y = 1.5;
-					bf_reach.frames = Paths.getSparrowAtlas('miku/BF REACH');
-					bf_reach.animation.addByPrefix('reach', "BF REACH SMOL", 20, false);
+				bf_reach.scale.set(1.5, 1.5);
+				bf_reach.frames = Paths.getSparrowAtlas('miku/BF REACH');
+				bf_reach.animation.addByPrefix('reach', "BF REACH SMOL", 20, false);
+
+				//what if we preload these bad bois
+				add(bf_reach);
+				bf_reach.alpha = 0;
 		}
 
 		backgroundGroup = new FlxTypedGroup<FlxSprite>();
@@ -2355,22 +2360,31 @@ class PlayState extends MusicBeatState
 						changeChar(0, "bf-rg-2");
 						boyfriend.playAnim('glance', true);
 						boyfriend.specialAnim = true;
-					case 1474:
-						changeChar(0, "bf-rg");
+
+					//idk if its useful guess not
+					/* waste of mem??
+					case 1470:
+						changeChar(0, "bf-rg");*/
 					case 1787:
-						changeChar(0, "bf-rg-2");
+						/*
+						changeChar(0, "bf-rg-2");*/
 						boyfriend.playAnim("glance", true);
 						boyfriend.specialAnim = true;
 					case 1882:
 						FlxTween.tween(dad, {alpha: 0}, 0.7, {ease: FlxEase.circInOut});
 						FlxTween.tween(boyfriend, {alpha: 0}, 0.7, {ease: FlxEase.circInOut});
 					case 1888:
-						add(bf_reach);
+						//add(bf_reach); bitch preloaded
+						bf_reach.alpha = 1;
 						bf_reach.animation.play('reach', true);
 					case 1903:
-						remove(bf_reach);
-						add(green);
-						add(hug);
+						bf_reach.alpha = 0;
+						//remove(bf_reach); what if we dont want to remove it
+						//add(green); bitches preloaded
+						//add(hug);
+
+						green.alpha = 1;
+						hug.alpha = 0.8;
 						changeChar(1, 'miku-rg-color');
 						changeChar(0, "bf-rg-color");
 						bgGreen.alpha = 1;
